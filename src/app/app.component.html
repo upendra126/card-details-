@@ -1,21 +1,48 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+<h1>Card payment</h1>
 
-<router-outlet></router-outlet>
+
+<form #cardDetails ="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <!-- {{ cardDetails.value | json}} -->
+  <div class="form-group">
+  <span class="scheme">{{ccNumber.resolvedScheme$ | async}}</span>
+  <br>
+  
+  <input class="form-control" type="tel" ccNumber #ccNumber="ccNumber" placeholder="Card Number" name="card Number" [(ngModel)]="payModel.number">
+    <br>
+    <input class="form-control" id="cc-exp-date" type="tel" autocomplete="cc-exp" ccExp placeholder="00/0000" name="Exp Date" [(ngModel)]="payModel.date">
+    <br>
+    <input class="form-control" id="cc-cvc" type="tel" autocomplete="off" ccCVC placeholder="CVV" name="CVV Number" [(ngModel)]="payModel.cvv" >
+    <br>
+    <button [disabled]="cardDetails.form.invalid" type="submit" class="btn btn-primary">Submit</button>
+</div>
+  </form>
+<!-- {{payModel | json}} -->
+
+
+
+<table class="table table-stripped">
+    <tr>
+      <!-- <th>Id</th> -->
+      <th>Card Type</th>
+      <th>Card Number</th>
+      <th>Expiry Date</th>
+      <th>CVV</th>
+    </tr>
+
+    
+    <tbody >
+      <tr ng-repeat="pays in payModel">
+       
+        <td>{{ccNumber.resolvedScheme$ | async}}</td> 
+        <td>{{payModel.number}}</td>
+        <td>{{payModel.date}}</td>
+        <td>{{payModel.cvv}}</td>
+        <td><button type="button" ng-click="getDetails(x)">delete</button></td>
+  
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
